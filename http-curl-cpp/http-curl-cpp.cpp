@@ -143,7 +143,6 @@ int http(char url[1024], int method, char body[1024], char response[1024])
 	int code; // curl 代码
 	int http_code;
 	int header_size;
-	int cookielist;
 	string response_string;
 
 	char* version = curl_version(); // libcurl 版本
@@ -179,12 +178,10 @@ int http(char url[1024], int method, char body[1024], char response[1024])
 
 	code = curl_easy_getinfo(curl_handle, CURLINFO_RESPONSE_CODE, &http_code); // 获取 http 响应代码，参见：https://curl.se/libcurl/c/CURLINFO_RESPONSE_CODE.html ，参见：https://everything.curl.dev/libcurl-http/responses#http-response-code
 	code = curl_easy_getinfo(curl_handle, CURLINFO_HEADER_SIZE, &header_size);
-	code = curl_easy_getinfo(curl_handle, CURLINFO_COOKIELIST, &cookielist);
 
 	curl_easy_cleanup(curl_handle); // 结束一个 libcurl 简单句柄，参见：https://curl.se/libcurl/c/curl_easy_cleanup.html
 
 	cout << "header_size：" << header_size << endl;
-	cout << "cookielist：" << cookielist << endl;
 
 	if (code == CURLcode::CURLE_OK)
 	{
